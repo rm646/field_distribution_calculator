@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
-#include "cavlib/constants.hh"
-#include "cavlib/vec3.hh"
+#include "constants.cc"
+#include "vec3.hh"
 #include "fpointdef.h" //a brief structure which holds a a position vector and a vector associated with that point
 #include "ver2loop.h" //specify functions which describe the current dist. (ver2 uses a more appropriate parametrisation)
 
@@ -16,7 +16,7 @@ double pi = C::pi;
 const int xnum = 300;
 const int ynum = 300;
 const int znum = 1;
-   
+
 //Describe lattice of points to measure b at
 double fx(int ix, int iy, int iz);
 double fy(int ix, int iy, int iz);
@@ -72,7 +72,7 @@ double fx(int ix,int iy,int iz) {
 
 double fy(int ix,int iy,int iz) {
   //runs from -yrange/2 to yrange/2
-  double yrange = 16.0;  
+  double yrange = 16.0;
   return ((double)iy)*(yrange/(double)ynum) - yrange/2;
 }
 
@@ -84,7 +84,7 @@ double fz(int ix,int iy,int iz) {
 
 void distribute_b_points(field_point field[xnum][ynum][znum], double (*fx)(int, int, int),  double (*fy)(int, int, int),  double (*fz)(int, int, int))  {
     //This function generates a set of field points by using the functions fx,fy,fz
-    
+
     //Placing points
 
     for (int iz=0; iz< znum; iz++) {
@@ -146,12 +146,12 @@ void print_bfield(field_point field[xnum][ynum][znum]) {
    for (int iz=0; iz< znum; iz++) {
       for (int iy=0; iy< ynum; iy++) {
 	for (int ix=0; ix< xnum; ix++) {
-	  cout << field[ix][iy][iz].r[0] << " "<< field[ix][iy][iz].r[1]<< " " << field[ix][iy][iz].r[2] << 
+	  cout << field[ix][iy][iz].r[0] << " "<< field[ix][iy][iz].r[1]<< " " << field[ix][iy][iz].r[2] <<
 	    " "<< field[ix][iy][iz].fvec[0]<< " "<< field[ix][iy][iz].fvec[1]<< " "<< field[ix][iy][iz].fvec[2]<< std::endl;
 	}
       }
     }
-}  
+}
 
 void output_heatmap_data(field_point field[xnum][ynum][znum], int iz) {
   //Function outputs blocks of data suitable for gnuplot pm3d using a given index to supply the level of the xy plane
@@ -170,7 +170,7 @@ void output_vector_field_in_plane(field_point field[xnum][ynum][znum], int iz){
     for (int ix=0; ix<xnum; ix++) {
       cout << field[ix][iy][iz].r[0] << "   " << field[ix][iy][iz].r[1] << "   " << field[ix][iy][iz].fvec[0]/field[ix][iy][iz].fvec.len() << "   " << field[ix][iy][iz].fvec[1]/field[ix][iy][iz].fvec.len() <<std::endl;}
   }
-  
+
 }
 
 double theory_single(double x){
@@ -206,5 +206,5 @@ void calculate_dev_plane(field_point field[xnum][ynum][znum]){
     }
     cout<<std::endl;
   }
-  
+
 }
